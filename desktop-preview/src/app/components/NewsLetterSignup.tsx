@@ -16,10 +16,13 @@ const NewsLetterSignup: React.FC<Props> = ({onSubscribe}) => {
             await onSubscribe(email);
             setIsSubscribed(true);
         } catch (error) {
-            
+            console.error("Subscription failed:", error);
         }
     }
 
+    // if (isSubscribed) {
+    //     return <SubcriptionConfirmation />
+    // }
 
     return (
         <div className={styles.container}>
