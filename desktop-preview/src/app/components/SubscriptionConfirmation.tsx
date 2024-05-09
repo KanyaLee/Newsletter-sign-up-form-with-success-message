@@ -1,4 +1,5 @@
 import React from 'react';
+import styles from "./SubscriptionConfirmation.module.css"
 
 interface Props {
     email: string;
@@ -7,17 +8,17 @@ interface Props {
 
 const SubscriptionConfirmation: React.FC<Props> = ({ email, onDismiss }) => {
     return (
-        <div className="newsletter-container">
-            <svg className="w-16 h-16 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-            </svg>
-            <h2 className="newsletter-title">Thanks for subscribing!</h2>
-            <p className="newsletter-text">
-                A confirmation email has been sent to {email}. Please open it and click the button inside to confirm your subscription.
-            </p>
-            <button onClick={onDismiss} className="newsletter-button">
-                Dismiss message
-            </button>
+        <div className={styles.main_container}>
+            <div className={styles.newsletter_container}>
+                <img className={styles.icon_success1} src='/image/images/icon-success.svg'></img>
+                <h2 className={styles.newsletter_title}>Thanks for subscribing!</h2>
+                <p className={styles.newsletter_text}>
+                    A confirmation email has been sent to <b>{email}</b>. Please open it and click the button inside to confirm your subscription.
+                </p>
+                <button onClick={onDismiss} className={styles.newsletter_button}>
+                    Dismiss message
+                </button>
+            </div>
         </div>
     );
 };

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from "./NewsLetterSignUp.module.css"
 // import SignUpIllustration from '/image/images/illustration-sign-up-desktop.svg'
+import SubscriptionConfirmation from './SubscriptionConfirmation';
 
 interface Props {
     onSubscribe: (email: string) => Promise<void>;
@@ -8,10 +9,11 @@ interface Props {
 
 const NewsLetterSignup: React.FC<Props> = ({onSubscribe}) => {
 
-    const [email, setEmail] = React.useState('')
-    const [isSubscribed, setIsSubscribed] = React.useState(false); 
+    const [email, setEmail] = useState('')
+    const [isSubscribed, setIsSubscribed] = useState(false); 
 
-    const handleSubmit = async () => {
+    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
         try {
             await onSubscribe(email);
             setIsSubscribed(true);
@@ -20,9 +22,9 @@ const NewsLetterSignup: React.FC<Props> = ({onSubscribe}) => {
         }
     }
 
-    // if (isSubscribed) {
-    //     return <SubcriptionConfirmation />
-    // }
+    if (isSubscribed) {
+        return <SubscriptionConfirmation email={email} onDismiss={() => setIsSubscribed(false)} />
+    }
 
     return (
         <div className={styles.container}>
@@ -42,10 +44,18 @@ const NewsLetterSignup: React.FC<Props> = ({onSubscribe}) => {
                         <img className={styles.icon_success} src='/image/images/icon-success.svg'></img>
                             And much more!</p>
                     </ul>
-                    <form className={styles.form}>
+                    <form className={styles.form} onSubmit={handleSubmit}>
                         <label htmlFor="email" className={styles.label}>Email address</label>
-                        <input id="email" type="email" placeholder="Your email" className={styles.input} />
-                        <button type="submit" onClick={handleSubmit} className={styles.button}>Subscribe to monthly newsletter</button>
+                        <input id="email" 
+                        type="email" 
+                        value={email}
+                        onChange={e => setEmail(e.target.value)}
+                        placeholder="Your email" 
+                        className={styles.input} />
+
+                        <button 
+                        type="submit"
+                        className={styles.button}>Subscribe to monthly newsletter</button>
                     </form>
                 </div>
 
