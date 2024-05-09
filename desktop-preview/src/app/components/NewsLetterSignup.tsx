@@ -11,9 +11,19 @@ const NewsLetterSignup: React.FC<Props> = ({onSubscribe}) => {
 
     const [email, setEmail] = useState('')
     const [isSubscribed, setIsSubscribed] = useState(false); 
+    const [emailError, setEmailError] = useState('')
 
+    const validateEmail = (email:string) => {
+        return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+    }
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        if (!validateEmail(email)) {
+            setEmailError("Valid Email required");
+            return;
+        }
+        setEmailError('')
+
         try {
             await onSubscribe(email);
             setIsSubscribed(true);
@@ -46,12 +56,13 @@ const NewsLetterSignup: React.FC<Props> = ({onSubscribe}) => {
                     </ul>
                     <form className={styles.form} onSubmit={handleSubmit}>
                         <label htmlFor="email" className={styles.label}>Email address</label>
+                        { emailError && <p className={styles.errorMessage}>{emailError}</p> } 
                         <input id="email" 
                         type="email" 
                         value={email}
                         onChange={e => setEmail(e.target.value)}
                         placeholder="Your email" 
-                        className={styles.input} />
+                        className={`${styles.input} ${emailError ? styles.inputError: ''}` } />
 
                         <button 
                         type="submit"

@@ -54,9 +54,9 @@
 
 .form {
     display: grid;
-    gap: 16px;
+    gap: 10px;
     /* grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); */
-    width: 80%;
+    width: 100%;
     align-items: center;
 }
 
@@ -82,3 +82,11 @@
     cursor: pointer;
 }
 
+.errorMessage {
+    color: red; /* Change as needed */
+    text-align: right;
+    font-size: 0.875rem; /* Smaller text for error message */
+}
+.inputError {
+    border-color: red; /* Change as needed */
+}
